@@ -1,0 +1,15 @@
+{
+    "name": "todo",
+    "version": "1.0.0",
+    "description": "Microservice Todo qui appelle l'API fidélité",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "node-fetch": "^2.6.7",
+      "axios": "^1.4.0"
+    }
+  }
+  

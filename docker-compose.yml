@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  fidelite:
+    build: ./fidelite
+    image: gmeline/epsi4a-mspr4-msfidelity:0.2.2
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+
+    depends_on:
+      - mongo
+    volumes:
+      - ./fidelite/data:/app/data
+
+  mongo:
+    image: mongo:latest
+    container_name: fidelite-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  todo:
+    build: ./todo
+    ports:
+      - "3002:3001"
+    depends_on:
+      - fidelite
+
+volumes:
+  mongo_data:
