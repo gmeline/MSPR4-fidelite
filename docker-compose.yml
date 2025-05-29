@@ -1,15 +1,14 @@
-version: '3.8'
 services:
   fidelite:
     build: ./fidelite
-    image: gmeline/epsi4a-mspr4-msfidelity:0.2.2
+    image: gmeline/epsi4a-mspr4-msfidelity:0.
     ports:
       - "3001:3000"
     env_file:
       - .env
-
     depends_on:
       - mongo
+      - fidelite-rabbitmq
     volumes:
       - ./fidelite/data:/app/data
 
@@ -20,6 +19,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+
+  fidelite-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: fidelite-rabbitmq
+    ports:
+      - "5672:5672"     # port AMQP
+      - "15672:15672"   # port management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: monMotDePasse123
 
   todo:
     build: ./todo
